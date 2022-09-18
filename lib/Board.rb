@@ -43,11 +43,37 @@ class Board
       j = 0
       while j < 8
         if i < 2
+          if i == 0
+            if j == 0 || j == 7
+              board[i][j] = Rook.new(Piece::COLOR_BLACK, board, [i,j])
+            elsif j == 1 || j == 6
+              board[i][j] = Knight.new(Piece::COLOR_BLACK, board, [i,j])
+            elsif j == 2 || j == 5
+              board[i][j] = Bishop.new(Piece::COLOR_BLACK, board, [i,j])
+            elsif j == 3
+              board[i][j] = Queen.new(Piece::COLOR_BLACK, board, [i,j])
+            else
+              board[i][j] = King.new(Piece::COLOR_BLACK, board, [i,j])
+            end
+          end
           board[i][j] = Pawn.new(Piece::COLOR_BLACK, board, [i,j])
         end
-        if i > 5
-          board[i][j] = Pawn.new(Piece::COLOR_WHITE, board, [i,j])
+      if i > 5
+        board[i][j] = Pawn.new(Piece::COLOR_WHITE, board, [i,j])
+        if i == 7
+          if j == 0 || j == 7
+              board[i][j] = Rook.new(Piece::COLOR_BLACK, board, [i,j])
+            elsif j == 1 || j == 6
+              board[i][j] = Knight.new(Piece::COLOR_BLACK, board, [i,j])
+            elsif j == 2 || j == 5
+              board[i][j] = Bishop.new(Piece::COLOR_BLACK, board, [i,j])
+            elsif j == 3
+              board[i][j] = Queen.new(Piece::COLOR_BLACK, board, [i,j])
+            else
+              board[i][j] = King.new(Piece::COLOR_BLACK, board, [i,j])
+            end
         end
+      end
         j += 1
       end
       i += 1
@@ -64,6 +90,6 @@ if __FILE__ == $PROGRAM_NAME
   b.move_piece([2,1], [3,1])
   b.move_piece([3,1], [4,1])
   b.move_piece([4,1], [5,1])
-  b.move_piece([5,1], [6,1])
+  b.move_piece([5,1], [6,2])
   p b
 end

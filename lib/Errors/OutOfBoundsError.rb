@@ -1,2 +1,0 @@
-class OutOfBoundsError < StandardError
-end

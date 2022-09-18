@@ -1,7 +1,7 @@
 require_relative "Piece"
 
 class NullPiece < Piece
-  def initialize(string)
-    super(string)
+  def initialize
+    super
   end
 end

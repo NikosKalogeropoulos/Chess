@@ -1,4 +1,6 @@
 class Piece
+  COLOR_BLACK = :black
+  COLOR_WHITE = :white
   attr_reader :color
   def initialize(color, board, pos)
     @color = color
@@ -44,4 +46,11 @@ class Piece
 
   end
 
+  def enemy_piece(pos)
+    row,col = pos
+    if @board[row][col].is_a?(Piece) && @board[row][col].color != self.color
+      return true
+    end
+    false
+  end
 end

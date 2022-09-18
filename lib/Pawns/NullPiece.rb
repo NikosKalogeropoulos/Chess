@@ -1,7 +1,11 @@
 require_relative "Piece"
+require "singleton"
 
 class NullPiece < Piece
-  def initialize
-    super
+  include Singleton
+  attr_reader :color
+
+  def symbol
+    " "
   end
 end

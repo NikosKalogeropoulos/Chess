@@ -2,6 +2,10 @@ require_relative "./Pawns/Piece.rb"
 require_relative "./Pawns/Knight.rb"
 require_relative "./Pawns/King.rb"
 require_relative "./Pawns/Queen.rb"
+require_relative "./Pawns/Rook.rb"
+require_relative "./Pawns/Bishop.rb"
+require_relative "./Pawns/NullPiece.rb"
+require_relative "./Pawns/Pawn.rb"
 require_relative "./Errors/InvalidMove.rb"
 require "byebug"
 
@@ -38,8 +42,11 @@ class Board
     while i < 8
       j = 0
       while j < 8
-        if i < 2 || i > 5
-          board[i][j] = Queen.new(:white, board, [i,j])
+        if i < 2
+          board[i][j] = Pawn.new(Piece::COLOR_BLACK, board, [i,j])
+        end
+        if i > 5
+          board[i][j] = Pawn.new(Piece::COLOR_WHITE, board, [i,j])
         end
         j += 1
       end
@@ -55,5 +62,8 @@ if __FILE__ == $PROGRAM_NAME
   b = Board.new
   b.move_piece([1,1], [2,1])
   b.move_piece([2,1], [3,1])
+  b.move_piece([3,1], [4,1])
+  b.move_piece([4,1], [5,1])
+  b.move_piece([5,1], [6,1])
   p b
 end

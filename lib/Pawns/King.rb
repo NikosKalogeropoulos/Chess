@@ -1,5 +1,6 @@
 require_relative "Piece"
 require_relative "../Modules/Stepable"
+
 class King < Piece
   include Stepable
 

@@ -1,6 +1,8 @@
 require_relative "./Pawns/Piece.rb"
 require_relative "./Pawns/Knight.rb"
-require_relative "./Errors/OutOfBoundsError.rb"
+require_relative "./Pawns/King.rb"
+require_relative "./Pawns/Queen.rb"
+require_relative "./Errors/InvalidMove.rb"
 require "byebug"
 
 class Board
@@ -37,7 +39,7 @@ class Board
       j = 0
       while j < 8
         if i < 2 || i > 5
-          board[i][j] = Knight.new(:white, board, [i,j])
+          board[i][j] = Queen.new(:white, board, [i,j])
         end
         j += 1
       end
@@ -51,6 +53,7 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   b = Board.new
-  b.move_piece([0,0], [2,1])
+  b.move_piece([1,1], [2,1])
+  b.move_piece([2,1], [3,1])
   p b
 end

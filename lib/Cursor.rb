@@ -1,4 +1,5 @@
 require "io/console"
+require "byebug"
 
 KEYMAP = {
   " " => :space,
@@ -32,16 +33,21 @@ MOVES = {
 
 class Cursor
 
-  attr_reader :cursor_pos, :board
+  attr_reader :cursor_pos, :selected
 
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
+    @selected = false
   end
 
   def get_input
     key = KEYMAP[read_char]
     handle_key(key)
+  end
+
+  def toggle_selected
+    @selected = !@selected
   end
 
   private
@@ -57,7 +63,7 @@ class Cursor
                              # character represented by the keycode.
                              # (e.g. 65.chr => "A")
 
-    if input == "\e" then
+    if input == "\e" then # escape character
       input << STDIN.read_nonblock(3) rescue nil # read_nonblock(maxlen) reads
                                                    # at most maxlen bytes from a
                                                    # data stream; it's nonblocking,
@@ -76,8 +82,32 @@ class Cursor
   end
 
   def handle_key(key)
+    case key
+    when :up
+      update_pos(MOVES[:up])
+      return nil
+    when :left
+      update_pos(MOVES[:left])
+      return nil
+    when :right
+      update_pos(MOVES[:right])
+      return nil
+    when :down
+      update_pos(MOVES[:down])
+      return nil
+    when :space, :return
+      toggle_selected
+      return @cursor_pos
+    when :ctrl_c
+      Process.exit(true)
+    end
   end
 
   def update_pos(diff)
+    current_row, current_col = @cursor_pos
+    t_row, t_col = diff
+    potential_new_cursor_pos = [current_row + t_row, current_col + t_col]
+    return nil unless potential_new_cursor_pos.all? {|coord| coord.between?(0,7)}
+    @cursor_pos = [current_row + t_row, current_col + t_col]
   end
 end

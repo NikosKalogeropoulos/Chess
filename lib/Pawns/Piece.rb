@@ -1,7 +1,7 @@
 class Piece
   COLOR_BLACK = :black
   COLOR_WHITE = :white
-  NO_COLOR = :none
+  NO_COLOR = :cyan
   attr_reader :color
   def initialize(color, board, pos)
     @color = color

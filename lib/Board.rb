@@ -7,9 +7,12 @@ require_relative "./Pawns/Bishop.rb"
 require_relative "./Pawns/NullPiece.rb"
 require_relative "./Pawns/Pawn.rb"
 require_relative "./Errors/InvalidMove.rb"
+require_relative "./Display"
+require "colorize"
 require "byebug"
 
 class Board
+  attr_reader :rows
   def initialize
     @null_piece = NullPiece.instance
     @rows = init_board
@@ -36,14 +39,6 @@ class Board
     self[end_pos].pos = end_pos
   end
 
-  def render
-    @rows.each do |col|
-      col.each do |piece|
-        print piece
-      end
-      puts
-    end
-  end
 
   private
   def init_board
@@ -74,15 +69,15 @@ class Board
           board[i][j] = Pawn.new(Piece::COLOR_WHITE, board, [i,j])
         elsif i == 7
           if j == 0 || j == 7
-              board[i][j] = Rook.new(Piece::COLOR_BLACK, board, [i,j])
+              board[i][j] = Rook.new(Piece::COLOR_WHITE, board, [i,j])
             elsif j == 1 || j == 6
-              board[i][j] = Knight.new(Piece::COLOR_BLACK, board, [i,j])
+              board[i][j] = Knight.new(Piece::COLOR_WHITE, board, [i,j])
             elsif j == 2 || j == 5
-              board[i][j] = Bishop.new(Piece::COLOR_BLACK, board, [i,j])
+              board[i][j] = Bishop.new(Piece::COLOR_WHITE, board, [i,j])
             elsif j == 3
-              board[i][j] = Queen.new(Piece::COLOR_BLACK, board, [i,j])
+              board[i][j] = Queen.new(Piece::COLOR_WHITE, board, [i,j])
             else
-              board[i][j] = King.new(Piece::COLOR_BLACK, board, [i,j])
+              board[i][j] = King.new(Piece::COLOR_WHITE, board, [i,j])
             end
         end
       end
@@ -102,7 +97,7 @@ if __FILE__ == $PROGRAM_NAME
   b.move_piece([2,1], [3,1])
   b.move_piece([3,1], [4,1])
   b.move_piece([4,1], [5,1])
+  b.move_piece([5,1], [6,2])
   b.move_piece([0,1], [2,2])
-  b.move_piece([3,3], [5,1])
   b.render
 end

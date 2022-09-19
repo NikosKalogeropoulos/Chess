@@ -6,7 +6,6 @@ class Pawn < Piece
   end
 
   def moves
-    debugger
     row, col = @pos
     step_pos = [[row + forward_dir, col]]
     if enemy_piece(step_pos.flatten)

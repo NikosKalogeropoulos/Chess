@@ -5,9 +5,7 @@ module Slideable
     row, col = @pos
     moves_array = []
     move_dirs.each do |dx, dy|
-      debugger
       moves_array += grow_unblocked_moves_in_dir(row, col, dx, dy);
-      debugger
     end
     moves_array
   end
@@ -23,7 +21,6 @@ module Slideable
     return [] if new_board_position_element.is_a?(Piece) && new_board_position_element.color == self.color
     # if new_row, new_col enemy piece return and add the move
     return [[new_row, new_col]] if new_board_position_element.is_a?(Piece) && new_board_position_element.color != self.color
-    debugger
     [[new_row, new_col]] + grow_unblocked_moves_in_dir(new_row, new_col, dx, dy)
   end
 end

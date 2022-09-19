@@ -3,9 +3,16 @@ require "singleton"
 
 class NullPiece < Piece
   include Singleton
-  attr_reader :color
-
+  def initialize
+  end
+  def color
+    Piece::NO_COLOR
+  end
   def symbol
     " "
+  end
+
+  def moves
+    []
   end
 end

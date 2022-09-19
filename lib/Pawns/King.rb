@@ -4,8 +4,8 @@ require_relative "../Modules/Stepable"
 class King < Piece
   include Stepable
 
-  def Symbol
-    "K!NG"
+  def symbol
+    "K"
   end
 
   protected

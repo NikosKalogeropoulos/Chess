@@ -1,6 +1,7 @@
 class Piece
   COLOR_BLACK = :black
   COLOR_WHITE = :white
+  NO_COLOR = :none
   attr_reader :color
   def initialize(color, board, pos)
     @color = color
@@ -26,9 +27,8 @@ class Piece
 
   def valid_moves
     current_row, current_col = @pos
-    debugger
     moves.select do |new_row, new_col|
-      @board[new_row][new_col] == nil || @board[new_row][new_col].color != @board[current_row][current_col].color
+      @board[new_row][new_col].is_a?(NullPiece)  || @board[new_row][new_col].color != @board[current_row][current_col].color
     end
   end
 
@@ -48,7 +48,7 @@ class Piece
 
   def enemy_piece(pos)
     row,col = pos
-    if @board[row][col].is_a?(Piece) && @board[row][col].color != self.color
+    if @board[row][col].is_a?(Piece) && !@board[row][col].is_a?(NullPiece) && @board[row][col].color != self.color
       return true
     end
     false

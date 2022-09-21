@@ -8,7 +8,7 @@ class Pawn < Piece
   def moves
     row, col = @pos
     step_pos = [[row + forward_dir, col]]
-    if enemy_piece(step_pos.flatten)
+    if enemy_piece?(step_pos.flatten)
       return side_attacks
     end
     side_attacks + forward_steps + step_pos
@@ -39,7 +39,7 @@ class Pawn < Piece
 
   def side_attacks
     row, col = @pos
-    if enemy_piece([row + forward_dir, col + 1]) || enemy_piece([row + forward_dir, col - 1])
+    if enemy_piece?([row + forward_dir, col + 1]) || enemy_piece?([row + forward_dir, col - 1])
       return [[row + forward_dir, col + 1], [row + forward_dir, col - 1]]
     end
     []

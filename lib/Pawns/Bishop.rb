@@ -5,7 +5,7 @@ class Bishop < Piece
   include Slideable
 
   def symbol
-    "B"
+    PIECE_SYMBOLS[:BISHOP]
   end
 
   private

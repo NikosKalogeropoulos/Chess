@@ -5,7 +5,7 @@ class King < Piece
   include Stepable
 
   def symbol
-    "K"
+    PIECE_SYMBOLS[:KING]
   end
 
   protected

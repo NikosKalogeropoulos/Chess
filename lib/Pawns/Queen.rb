@@ -5,7 +5,7 @@ class Queen < Piece
   include Slideable
 
   def symbol
-    "Q"
+    PIECE_SYMBOLS[:QUEEN]
   end
 
   private

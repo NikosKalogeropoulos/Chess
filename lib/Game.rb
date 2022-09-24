@@ -15,7 +15,6 @@ class Game
   def play
     while true
       begin
-        notify_players
         @current_player.make_move(@board)
       rescue StandardError => e
         system("clear")
@@ -23,15 +22,12 @@ class Game
         sleep(5)
         retry
       end
-      break if @board.checkmate?(next_player.color)
+      next_player
+      break if @board.checkmate?(@current_player.color)
     end
   end
 
   private
-
-  def notify_players
-    puts "#{@current_player.color} turn"
-  end
 
   def next_player
     @current_player == @player_1 ? @current_player = @player_2 : @current_player = @player_1

@@ -16,16 +16,29 @@ class Display
         pos = [row,col]
         if pos == @cursor.cursor_pos
           color = nil
-          @cursor.selected ? color = :green : color = :red
-          print @board[pos].to_s.colorize(color)
+          if @cursor.selected
+            color = @board[pos].color
+            background_color = :magenta
+          else
+            color = @board[pos].color
+            background_color = :black
+          end
+          print @board[pos].to_s.colorize(:background => background_color, :color => color)
+        elsif @board[pos].is_a?(Piece) && (row + col).even?
+          print @board[pos].to_s.colorize(:background => :light_white, :color => @board[pos].color)
         else
-          print @board[pos].to_s.colorize(@board[pos].color)
+
+          print @board[pos].to_s.colorize(:background => :light_black, :color => @board[pos].color)
         end
         col +=1
       end
       puts
       row +=1
     end
+    puts
+    puts "Keyboard arrows to move cursor"
+    puts "enter to select a piece/move piece"
+    puts  "ctrl + c to exit"
   end
 end
 

@@ -2,8 +2,8 @@ require_relative "Piece"
 
 class Pawn < Piece
   def symbol
-    "1"
-  end
+    PIECE_SYMBOLS[:PAWN]
+end
 
   def moves
     row, col = @pos

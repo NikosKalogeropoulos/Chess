@@ -119,7 +119,7 @@ class Board
     king_piece = nil
     @rows.each do |cols|
       cols.each do |element|
-        if element.symbol == "K" && element.color == color
+        if element.symbol == PIECE_SYMBOLS[:KING] && element.color == color
           king_piece = element
           break
         end

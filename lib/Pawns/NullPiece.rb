@@ -9,7 +9,7 @@ class NullPiece < Piece
     Piece::NO_COLOR
   end
   def symbol
-    "_"
+    " "
   end
 
   def moves

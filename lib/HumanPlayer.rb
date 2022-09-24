@@ -10,6 +10,7 @@ class HumanPlayer
 
   def make_move(board)
     system("clear")
+    puts "#{@color} turn"
     render
     starting_position, ending_position = get_input
     raise InvalidMove.new("Can only control #{@color} pawns") if board[starting_position].color != @color

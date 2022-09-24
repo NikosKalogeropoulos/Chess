@@ -1,7 +1,8 @@
+require_relative "../Symbols"
 class Piece
-  COLOR_BLACK = :black
-  COLOR_WHITE = :white
-  NO_COLOR = :cyan
+  COLOR_BLACK = :red
+  COLOR_WHITE = :cyan
+  NO_COLOR = :magenta
   attr_accessor :color, :pos, :board
   def initialize(color, board, pos)
     @color = color
@@ -10,7 +11,7 @@ class Piece
   end
 
   def to_s
-    symbol
+    symbol + "  "
   end
 
 

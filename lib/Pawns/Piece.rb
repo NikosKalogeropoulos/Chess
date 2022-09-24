@@ -13,9 +13,6 @@ class Piece
     symbol
   end
 
-  def update_pos
-
-  end
 
   def empty?
 
@@ -25,30 +22,34 @@ class Piece
 
   end
 
-  def valid_moves
-    current_row, current_col = @pos
-    moves.select do |new_row, new_col|
-      @board[new_row][new_col].is_a?(NullPiece)  || enemy_piece?([new_row, new_col])
-    end
+  def filter_moves
+    moves.select {|pos| @board[pos].is_a?(NullPiece) || enemy_piece?(pos)}
   end
 
-  def pos=(val)
-    @pos = val
+  def valid_moves
+    return [] if filter_moves.empty?
+    filter_moves.select {|pos| !move_into_check?(pos)}
   end
 
   def symbol
-
   end
 
   def enemy_piece?(pos)
-    row,col = pos
-    board[row][col].is_a?(Piece) && !@board[row][col].is_a?(NullPiece) && @board[row][col].color != self.color
+    @board[pos].is_a?(Piece) && !@board[pos].is_a?(NullPiece) && @board[pos].color != self.color
   end
 
+  def inspect
+    to_s + "#{@color}"
+  end
   private
 
   def move_into_check?(end_pos)
+    duplicate_board = @board.dup
 
+    debugger
+    duplicate_board.move_piece!(@pos, end_pos)
+    debugger
+    duplicate_board.in_check?(@color)
   end
 
 

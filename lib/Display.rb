@@ -40,7 +40,10 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   b = Board.new
+  d = Display.new(b)
+  d.render
   b.move_piece([1,2], [2,2])
+  d.render
   b.move_piece([2,2], [3,2])
   b.move_piece([3,2], [4,2])
   b.move_piece([4,2], [5,2])

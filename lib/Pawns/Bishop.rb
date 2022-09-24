@@ -9,12 +9,8 @@ class Bishop < Piece
   end
 
   private
+
   def move_dirs
-    dirs = [
-      [-1, -1],
-      [-1, 1],
-      [1, -1],
-      [1, 1]
-    ]
+    dirs = [[-1, -1], [-1, 1], [1, -1], [1, 1]]
   end
 end

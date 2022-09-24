@@ -19,14 +19,13 @@ class Board
   end
 
   def [](pos)
-    row,col = pos
+    row, col = pos
     @rows[row][col]
   end
 
   def []=(pos, val)
-    row,col = pos
+    row, col = pos
     @rows[row][col] = val
-
   end
 
   def move_piece!(start_pos, end_pos)
@@ -38,15 +37,20 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
-    raise ArgumentError.new("start_pos element doesn't have a valid Piece") if self[start_pos].is_a?(NullPiece) || !self[start_pos].is_a?(Piece)
+    if self[start_pos].is_a?(NullPiece) || !self[start_pos].is_a?(Piece)
+      raise ArgumentError.new("start_pos element doesn't have a valid Piece")
+    end
     piece = self[start_pos]
-    raise InvalidMove.new("Invalid move for #{piece.to_s}\nStarting position: row #{start_pos[0]} col #{start_pos[1]}\nEnd position: row #{end_pos[0]} col #{end_pos[1]}\nValid positions: #{piece.valid_moves}") unless piece.valid_moves.include?(end_pos)
+    unless piece.valid_moves.include?(end_pos)
+      raise InvalidMove.new(
+              "Invalid move for #{piece.to_s}\nStarting position: row #{start_pos[0]} col #{start_pos[1]}\nEnd position: row #{end_pos[0]} col #{end_pos[1]}\nValid positions: #{piece.valid_moves}"
+            )
+    end
     self[end_pos] = @null_piece
     self[end_pos] = self[start_pos]
     self[start_pos] = @null_piece
     self[end_pos].pos = end_pos
   end
-
 
   def in_check?(color)
     # Find the position of the king with the specific color on the board
@@ -70,16 +74,13 @@ class Board
     @rows.each do |col|
       col.each do |piece|
         if piece.color == color
-          unless piece.valid_moves.empty?
-            have_moves_flag = true
-          end
+          have_moves_flag = true unless piece.valid_moves.empty?
         end
       end
       break if have_moves_flag
     end
     !have_moves_flag
   end
-
 
   def dup
     board = Board.new
@@ -89,7 +90,7 @@ class Board
       j = 0
       while j < 8
         if @rows[i][j].is_a?(NullPiece)
-          board[[i,j]] = NullPiece.instance
+          board[[i, j]] = NullPiece.instance
         else
           piece = @rows[i][j]
           assign_duped_piece_to_board(piece, board)
@@ -100,8 +101,6 @@ class Board
     end
     board
   end
-
-
 
   private
 
@@ -131,63 +130,60 @@ class Board
 
   def init_board
     i = 0
-    board = Array.new(8) {Array.new(8) {@null_piece} }
+    board = Array.new(8) { Array.new(8) { @null_piece } }
     while i < 8
       j = 0
       while j < 8
         if i < 2
           if i == 0
             if j == 0 || j == 7
-              board[i][j] = Rook.new(Piece::COLOR_BLACK, self, [i,j])
+              board[i][j] = Rook.new(Piece::COLOR_BLACK, self, [i, j])
             elsif j == 1 || j == 6
-              board[i][j] = Knight.new(Piece::COLOR_BLACK, self, [i,j])
+              board[i][j] = Knight.new(Piece::COLOR_BLACK, self, [i, j])
             elsif j == 2 || j == 5
-              board[i][j] = Bishop.new(Piece::COLOR_BLACK, self, [i,j])
+              board[i][j] = Bishop.new(Piece::COLOR_BLACK, self, [i, j])
             elsif j == 3
-              board[i][j] = Queen.new(Piece::COLOR_BLACK, self, [i,j])
+              board[i][j] = Queen.new(Piece::COLOR_BLACK, self, [i, j])
             else
-              board[i][j] = King.new(Piece::COLOR_BLACK, self, [i,j])
+              board[i][j] = King.new(Piece::COLOR_BLACK, self, [i, j])
             end
           else
-            board[i][j] = Pawn.new(Piece::COLOR_BLACK, self, [i,j])
+            board[i][j] = Pawn.new(Piece::COLOR_BLACK, self, [i, j])
           end
         end
-      if i > 5
-        if i == 6
-          board[i][j] = Pawn.new(Piece::COLOR_WHITE, self, [i,j])
-        elsif i == 7
-          if j == 0 || j == 7
-              board[i][j] = Rook.new(Piece::COLOR_WHITE, self, [i,j])
+        if i > 5
+          if i == 6
+            board[i][j] = Pawn.new(Piece::COLOR_WHITE, self, [i, j])
+          elsif i == 7
+            if j == 0 || j == 7
+              board[i][j] = Rook.new(Piece::COLOR_WHITE, self, [i, j])
             elsif j == 1 || j == 6
-              board[i][j] = Knight.new(Piece::COLOR_WHITE, self, [i,j])
+              board[i][j] = Knight.new(Piece::COLOR_WHITE, self, [i, j])
             elsif j == 2 || j == 5
-              board[i][j] = Bishop.new(Piece::COLOR_WHITE, self, [i,j])
+              board[i][j] = Bishop.new(Piece::COLOR_WHITE, self, [i, j])
             elsif j == 3
-              board[i][j] = Queen.new(Piece::COLOR_WHITE, self, [i,j])
+              board[i][j] = Queen.new(Piece::COLOR_WHITE, self, [i, j])
             else
-              board[i][j] = King.new(Piece::COLOR_WHITE, self, [i,j])
+              board[i][j] = King.new(Piece::COLOR_WHITE, self, [i, j])
             end
+          end
         end
-      end
         j += 1
       end
       i += 1
     end
     board
   end
-
 end
-
 
 if __FILE__ == $PROGRAM_NAME
   b = Board.new
   b_dup = b.dup
-  b.move_piece([1,2],[2,2])
-  b.move_piece([2,2],[3,2])
-  b.move_piece([3,2],[4,2])
-  b.move_piece([4,2],[5,2])
-  b.move_piece([5,2],[6,3])
+  b.move_piece([1, 2], [2, 2])
+  b.move_piece([2, 2], [3, 2])
+  b.move_piece([3, 2], [4, 2])
+  b.move_piece([4, 2], [5, 2])
+  b.move_piece([5, 2], [6, 3])
 
   p b.checkmate?(Piece::COLOR_BLACK)
-
 end

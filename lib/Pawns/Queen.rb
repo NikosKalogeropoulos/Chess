@@ -9,9 +9,10 @@ class Queen < Piece
   end
 
   private
+
   def move_dirs
     dirs = [
-      [1,0],
+      [1, 0],
       [-1, 0],
       [0, 1],
       [0, -1],

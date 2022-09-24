@@ -30,12 +30,10 @@ class Game
   private
 
   def next_player
-    @current_player == @player_1 ? @current_player = @player_2 : @current_player = @player_1
+    @current_player == @player_1 ?
+      @current_player = @player_2 :
+      @current_player = @player_1
   end
 end
 
-
-
-if __FILE__ == $PROGRAM_NAME
-  Game.new.play
-end
+Game.new.play if __FILE__ == $PROGRAM_NAME

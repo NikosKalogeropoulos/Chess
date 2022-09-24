@@ -8,6 +8,7 @@ class Knight < Piece
   end
 
   protected
+
   def move_diffs
     deltas = [
       [-2, -1],

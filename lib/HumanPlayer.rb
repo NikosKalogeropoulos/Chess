@@ -1,4 +1,3 @@
-
 require_relative "./Errors/InvalidMove.rb"
 require_relative "./Display.rb"
 class HumanPlayer
@@ -13,11 +12,13 @@ class HumanPlayer
     puts "#{@color} turn"
     render
     starting_position, ending_position = get_input
-    raise InvalidMove.new("Can only control #{@color} pawns") if board[starting_position].color != @color
+    if board[starting_position].color != @color
+      raise InvalidMove.new("Can only control #{@color} pawns")
+    end
     board.move_piece(starting_position, ending_position)
   end
 
-private
+  private
 
   def render
     @display.render

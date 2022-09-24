@@ -45,10 +45,7 @@ class Piece
 
   def move_into_check?(end_pos)
     duplicate_board = @board.dup
-
-    debugger
     duplicate_board.move_piece!(@pos, end_pos)
-    debugger
     duplicate_board.in_check?(@color)
   end
 

@@ -30,10 +30,8 @@ class Board
   end
 
   def move_piece!(start_pos, end_pos)
-    raise ArgumentError.new("start_pos element doesn't have a valid Piece") if self[start_pos].is_a?(NullPiece) || !self[start_pos].is_a?(Piece)
     piece = self[start_pos]
-    raise InvalidMove.new("Invalid move for #{piece.to_s}\nStarting position: row #{start_pos[0]} col #{start_pos[1]}\nEnd position: row #{end_pos[0]} col #{end_pos[1]}\nValid positions: #{piece.valid_moves}") unless piece.filter_moves.include?(end_pos)
-    self[end_pos].pos = @null_piece if self[end_pos].is_a?(Piece)
+    self[end_pos] = @null_piece
     self[end_pos] = self[start_pos]
     self[start_pos] = @null_piece
     self[end_pos].pos = end_pos
@@ -43,10 +41,6 @@ class Board
     raise ArgumentError.new("start_pos element doesn't have a valid Piece") if self[start_pos].is_a?(NullPiece) || !self[start_pos].is_a?(Piece)
     piece = self[start_pos]
     raise InvalidMove.new("Invalid move for #{piece.to_s}\nStarting position: row #{start_pos[0]} col #{start_pos[1]}\nEnd position: row #{end_pos[0]} col #{end_pos[1]}\nValid positions: #{piece.valid_moves}") unless piece.valid_moves.include?(end_pos)
-    if piece.valid_moves.empty?
-
-      return "wtf"
-    end
     self[end_pos] = @null_piece
     self[end_pos] = self[start_pos]
     self[start_pos] = @null_piece
@@ -83,7 +77,7 @@ class Board
       end
       break if have_moves_flag
     end
-    have_moves_flag
+    !have_moves_flag
   end
 
 

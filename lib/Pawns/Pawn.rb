@@ -8,8 +8,11 @@ class Pawn < Piece
   def moves
     row, col = @pos
     step_pos = [[row + forward_dir, col]]
+    double_step_pos = [[row + 2 * forward_dir, col]]
     if enemy_piece?(step_pos.flatten)
       return side_attacks
+    elsif enemy_piece?(double_step_pos.flatten)
+      return side_attacks + step_pos
     end
     side_attacks + forward_steps + step_pos
   end

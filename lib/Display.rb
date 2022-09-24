@@ -2,6 +2,7 @@ require_relative "./Board"
 require_relative "./Cursor"
 
 class Display
+  attr_accessor :cursor
   def initialize(board)
     @board = board
     @cursor = Cursor.new([0,0], @board)
@@ -26,15 +27,6 @@ class Display
       row +=1
     end
   end
-
-  def play
-    while true
-      system("clear")
-      render
-      @cursor.get_input
-    end
-  end
-
 end
 
 

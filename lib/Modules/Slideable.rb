@@ -1,4 +1,5 @@
 require_relative "../Pawns/Piece"
+require "byebug"
 module Slideable
 
   def moves
@@ -20,7 +21,7 @@ module Slideable
     new_board_position_element = @board[[new_row, new_col]]
     return [] if new_board_position_element.is_a?(Piece) && new_board_position_element.color == self.color
     # if new_row, new_col enemy piece return and add the move
-    return [[new_row, new_col]] if new_board_position_element.is_a?(Piece) && new_board_position_element.color != self.color
+    return [[new_row, new_col]] if new_board_position_element.is_a?(Piece) && new_board_position_element.color != self.color && !new_board_position_element.is_a?(NullPiece)
     [[new_row, new_col]] + grow_unblocked_moves_in_dir(new_row, new_col, dx, dy)
   end
 end

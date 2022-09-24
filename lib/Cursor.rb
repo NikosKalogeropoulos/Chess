@@ -96,7 +96,7 @@ class Cursor
       update_pos(MOVES[:down])
       return nil
     when :space, :return
-      toggle_selected unless @board[@cursor_pos].is_a?(NullPiece)
+      toggle_selected
       return @cursor_pos
     when :ctrl_c
       Process.exit(true)
